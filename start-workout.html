@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content=""width=device-width, intial-scale="1.0">
+    <title>Logbook</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1> Logbook</h1>
+        <p> Don't be a skinny bitch.</p>
+    </header>
+
+    <section id="workout-form">
+        <h2>Add a New Workout</h2>
+        <form id="add-workout-form">
+            <label for="exercise-name">Exercise:</label>
+            <input type="text" id="exercise-name" name="exerciseName" required placeholder="e.g, Squat">
+
+            <label for="wieght"> Weight (lbs):</label>
+            <input type="number" id="weight" name="weight" required placeholder="e.g., 50">
+
+            <label for="reps"> Reps:</label>
+            <input type="number" id="reps" name="reps" required placeholder="e.g., 8">
+
+            <label for="RIR"> RIR:</label>
+            <input type="number" id="rir" name="rir" required placeholder="e.g., 2">
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <button type="submit">Add Workout</button>
+        </form>
+    </section>
+
+    <section id="workout-log">
+        <h2>Your Workout Log</h2>
+        <div id="workout-list">
+            <!-- Workout entries will be displayed here -->
+            <p>No workouts logged yet!</p>
+        </div>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>
