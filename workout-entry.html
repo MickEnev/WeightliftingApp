@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Entry</title>
+    <script src="app.js"></script>
+    <div>
+        <a href="index.html" class="button-back-home">Back Home</a>
+    </div>
+    <div id="exercise-container">
+        <button onclick="startWorkout()">Start Workout</button>
+    </div>
+</head>
+<body>
+   <!-- Dropdown for selecting exercises -->
+<div id="workout-screen" style ="display: none;">
+    <div id="exercise-container">
+        <select id="exercise-select">
+            <option value="">Select an Exercise</option>
+        </select>
+        <button onclick="showAddExerciseForm()">Add Exercise</button>
+    </div>
+
+    <!-- Modal for adding a new exercise -->
+    <div id="add-exercise-modal" style="display: none;">
+        <h3>Add New Exercise</h3>
+        <label for="exercise-name">Name:</label>
+        <input type="text" id="exercise-name"><br>
+        <label for="body-part">Body Part:</label>
+        <input type="text" id="body-part"><br>
+        <label for="equipment">Equipment:</label>
+        <input type="text" id="equipment"><br>
+        <button onclick="addNewExercise()">Submit</button>
+        <button onclick="hideAddExerciseForm()">Cancel</button>
+    </div>
+
+        <h2>Enter Workout Performance</h2>
+        <label for="reps">Reps:</label>
+        <input type="number" id="reps">
+        <label for="setNumber">Set Number:</label>
+        <input type="number" id="setNumber">
+        <label for="rir">RIR:</label>
+        <input type="number" id="rir">
+        <label for="weight">Weight:</label>
+        <input type="number" step="0.01" id="weight">
+        <button onclick="submitWorkoutPerformance(
+            document.getElementById('reps').value,
+            document.getElementById('setNumber').value,
+            document.getElementById('rir').value,
+            document.getElementById('weight').value
+        )">Submit Workout Performance</button>
+</div>
+</body>
+</html>
