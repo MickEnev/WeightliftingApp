@@ -1,10 +1,11 @@
 # app.py - Backend server using Flask
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
 from flask_cors import CORS
 import mysql.connector
 
 app = Flask(__name__)
 CORS(app) 
+app.secret_key = 'hi' 
 
 # Connect to MySQL database
 mydb = mysql.connector.connect(
@@ -22,8 +23,20 @@ def get_exercises():
     cursor.close()
     return jsonify(exercises)
 
+@app.route('/workoutperformance', methods=['GET'])
+def get_performance():
+    cursor = mydb.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM WORKOUT_PERFORMANCE, EXERCISES WHERE WORKOUT_PERFORMANCE.ExerciseID = EXERCISES.ExerciseID ORDER BY PerformanceID DESC;")
+    performances = cursor.fetchall()
+    cursor.close
+    return jsonify(performances)
+
 @app.route('/start-workout', methods=['POST'])
 def start_workout():
+    user_id = 1#get_active_user_id()
+    if not user_id:
+        return jsonify({"message": "User not logged in"}), 403
+
     cursor = mydb.cursor()
 
     cursor.execute("INSERT INTO WORKOUT (UserID) VALUES (%s)", (1,))
@@ -99,6 +112,48 @@ def add_workout():
     cursor.execute(query, (WorkoutID, UserID, ExerciseID, Reps, Sets, RepsInReserve))
     mydb.commit()
     cursor.close()
+
+
+# User Sign-Up
+@app.route('/sign-up', methods=['POST'])
+def sign_up():
+    data = request.json
+    name = data.get("Name")
+    
+    cursor = mydb.cursor()
+    cursor.execute("INSERT INTO users (Name) VALUES (%s)", (name,))
+    mydb.commit()
+    user_id = cursor.lastrowid
+    cursor.close()
+
+    return jsonify({"message": "User registered successfully", "UserID": user_id}), 201
+
+# User Log-In
+@app.route('/log-in', methods=['POST'])
+def log_in():
+    data = request.json
+    name = data.get("Name")
+    
+    cursor = mydb.cursor(dictionary=True)
+    cursor.execute("SELECT UserID FROM users WHERE Name = %s", (name,))
+    user = cursor.fetchone()
+    cursor.close()
+    
+    if user:
+        session['user_id'] = user["UserID"]  # Store active user in session
+        return jsonify({"message": "Login successful", "UserID": user["UserID"]}), 200
+    else:
+        return jsonify({"message": "User not found"}), 404
+
+# Logout route to clear the session
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop('user_id', None)
+    return jsonify({"message": "Logged out successfully"}), 200
+
+# Access active user ID in other routes
+def get_active_user_id():
+    return session.get('user_id')  # Use this to access the logged-in user ID
 
 if __name__ == '__main__':
     app.run(debug=True)

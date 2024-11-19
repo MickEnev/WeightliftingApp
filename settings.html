@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Settings</h1>
+        <p>Don't forget to log in!</p>
+    </header>
+
+    <!-- Main Navigation Section -->
+    <main>
+        <div class="button-container">
+            <button onclick="createAccount()">Sign Up</button>
+            <button onclick="logIn()">Log In</button>
+            <button onclick="changeTheme()">Dark Mode</button>
+        </div>
+    </main>
+
+    <!-- Sign-Up Modal -->
+    <div id="signUpModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('signUpModal')">&times;</span>
+            <h2>Sign Up</h2>
+            <input type="text" id="signUpUsername" placeholder="Username">
+            <input type="password" id="signUpPassword" placeholder="Password">
+            <button onclick="submitSignUp()">Submit</button>
+        </div>
+    </div>
+
+    <!-- Log-In Modal -->
+    <div id="logInModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('logInModal')">&times;</span>
+            <h2>Log In</h2>
+            <input type="text" id="logInUsername" placeholder="Username">
+            <input type="password" id="logInPassword" placeholder="Password">
+            <button onclick="submitLogIn()">Submit</button>
+        </div>
+    </div>
+
+    <!-- Settings Button -->
+     <div class="settings">
+        <a href="index.html">Exit Settings</a>
+     </div>
+
+    <!-- Optional Footer -->
+    <footer>
+        <p>&copy; 2024 McTracker</p>
+    </footer>
+
+    <!-- External JavaScript File -->
+    <script src="settings.js"></script>
+</body>
+</html>
