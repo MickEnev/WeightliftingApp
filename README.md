@@ -6,4 +6,5 @@ Run a local instance of MySQL and input your credentials into the app.py. Run ap
 
 ## Roadmap
 I plan on changing the database to Firebase to allow for better storage and remove the need for MySQL. 
+
 ![image](https://github.com/user-attachments/assets/5515d8ca-7de7-4409-9383-c360430258a0)
